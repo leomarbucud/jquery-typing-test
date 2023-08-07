@@ -1,8 +1,7 @@
 (function($) {
-
     $.fn.typingTest = function(options) {
 
-        var settings = $.extend({}, $.fn.typingTest.defaults, options);
+        const settings = $.extend({}, $.fn.typingTest.defaults, options);
 
         async function getWords() {
             const result = await $.ajax({
@@ -90,13 +89,16 @@
                 }
             });
             const time = $wrapper.find('.time').text();
+
+            // convert sec to minute
             const min = time / 60;
+
+            // gross words per minute
             let gwpm = (totalLettersInput/5)/min;
 
-            // net wpm
+            // net words per minute
             let nwpm = gwpm - (incorrectWords/min);
 
-            gwpm = Math.floor(gwpm)
             nwpm = Math.floor(nwpm);
 
             $wrapper.find('.wpm').text(nwpm);
