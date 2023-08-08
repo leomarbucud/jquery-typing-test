@@ -1,24 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto Mono', monospace;
 }
 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Rubik', sans-serif;
 }
 
 .wrapper {
-    width: 300px;
+    width: 500px;
 }
 .typing-details {
     display: flex;
-    font-size: 10px;
+    font-size: 1em;
     flex-direction: row;
 }
 .wpm {
@@ -43,8 +43,8 @@ body {
 }
 
 .words-list .word {
-    font-size: 12px;
-    margin-right: 2px;
+    font-size: 1.3em;
+    margin-right: 0.25em;
     display: inline-block;
     padding: 2px;
     border-radius: 2px;
@@ -75,7 +75,7 @@ body {
     margin-top: 5px;
 }
 .actions input {
-    font-size: 12px;
+    font-size: 1.3em;
     flex: 1;
     border: 1px solid #d2d2d2;
     padding: 2px 4px;
@@ -85,5 +85,34 @@ body {
     border: inherit;
 }
 .actions .refresh {
-    font-size: 8px;
+    background-color: #0a6bff;
+    border-radius: 4px;
+    border: 0;
+    box-shadow: rgba(1,60,136,.5) 0 -1px 3px 0 inset,rgba(0,44,97,.1) 0 3px 6px 0;
+    color: #fff;
+    cursor: pointer;
+    display: inherit;
+    font-size: 1.2em;
+    font-weight: 700;
+    margin: 0;
+    min-width: 75px;
+    padding: 2px 8px;
+    position: relative;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    transition: all .2s cubic-bezier(.22, .61, .36, 1);
+}
+
+.finished .words-list,
+.finished .typing-details {
+    display: none;
+}
+.result {
+    display: none;
+}
+.finished .result {
+    display: block;
 }

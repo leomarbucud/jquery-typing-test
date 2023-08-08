@@ -23,9 +23,10 @@
         const $words = $wrapper.find(`.words-list`);
         const $refresh = $wrapper.find(`.refresh`);
         const $input = $wrapper.find(`input`);
+        const $mistakes = $wrapper.find(`.mistakes`);
 
         let totalInput = 0;
-        let incorrectWords = 0;
+        let incorrectWords = [];
 
         // initialize words
         function initWords(words) {
@@ -40,16 +41,19 @@
                 $words.html('');
                 initWords(res);
             });
-            stopTime();
             $input.focus();
+            stopTime();
             reset();
         }
 
         function reset() {
             totalInput = 0;
-            incorrectWords = 0;
+            incorrectWords = [];
             $time.text(0);
             $wpm.text(0)
+            $input.val('');
+            $mistakes.text('');
+            $wrapper.removeClass('finished');
         }
 
         // create word item
@@ -70,12 +74,11 @@
         function nextWord() {
             const $aw = getActiveWord();
             const $n = $aw.next();
+            $aw.removeClass('active');
             if( $n.length ) {
-                $aw.removeClass('active');
                 $n.addClass('active');
             } else {
                 stopTime();
-                $aw.removeClass('active');
             }
 
             $input.val('');
@@ -86,12 +89,18 @@
                 let time = parseFloat($time.text());
                 time += (1/10);
                 $time.text(time.toFixed(1));
-                calculateWPM();
+                if( time % 1 == 0 ) {
+                    calculateWPM();
+                }
             }, 100);
         }
 
         function stopTime() {
             clearInterval(window.timer);
+            $wrapper.addClass('finished');
+            if( incorrectWords.length ) {
+                $mistakes.text(`Mistakes: ${incorrectWords.join(', ')}`);
+            }
         }
 
         function calculateWPM() {
@@ -99,7 +108,7 @@
 
             let GWPM = (totalInput / 5) / time;
 
-            let NWPM = parseInt(GWPM - (incorrectWords/time));
+            let NWPM = parseInt(GWPM - ((incorrectWords.length)/time));
             $wpm.text(NWPM)
         }
 
@@ -114,7 +123,7 @@
                     $aw.addClass('correct');
                 } else {
                     $aw.addClass('wrong');
-                    incorrectWords++;
+                    incorrectWords.push(aw);
                 }
                 nextWord();
             } else {
@@ -131,7 +140,7 @@
             $elem.after($wrapper);
             refreshWords();
             $refresh.on('click', refreshWords);
-            $input.on('keyup', typing);
+            $input.on('input', typing);
         }
 
         return this.each(function() {
@@ -154,6 +163,10 @@
                 <div class="actions">
                     <input />
                     <button type="button" class="refresh">Refresh</button>
+                </div>
+                <div class="result">
+                    <div class="wpm">0</div>
+                    <div class="mistakes"></div>
                 </div>
             </div>
         `,
