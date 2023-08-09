@@ -1,5 +1,5 @@
 $(function() {
     $(`[data-toggle="typing"]`).typingTest({
-        words: 5
+        words: 10
     });
 });

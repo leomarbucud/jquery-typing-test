@@ -24,8 +24,8 @@ body {
 .wpm {
     width: 50%;
 }
-.wpm::after {
-    content: ' wpm';
+.wpm::before {
+    content: 'WPM ';
 }
 .time {
     width: 50%;
@@ -86,33 +86,29 @@ body {
 }
 .actions .refresh {
     background-color: #0a6bff;
-    border-radius: 4px;
+    border-radius: 0 4px 4px 0;
     border: 0;
-    box-shadow: rgba(1,60,136,.5) 0 -1px 3px 0 inset,rgba(0,44,97,.1) 0 3px 6px 0;
     color: #fff;
     cursor: pointer;
-    display: inherit;
     font-size: 1.2em;
     font-weight: 700;
-    margin: 0;
     min-width: 75px;
-    padding: 2px 8px;
-    position: relative;
+    padding: 8px;
     text-align: center;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: baseline;
-    transition: all .2s cubic-bezier(.22, .61, .36, 1);
 }
 
-.finished .words-list,
 .finished .typing-details {
-    display: none;
+    font-size: 2em;
 }
 .result {
     display: none;
 }
 .finished .result {
     display: block;
+}
+.result .wpm {
+    font-size: 2em;
+}
+.result .mistakes {
+    font-size: 1.5em;
 }

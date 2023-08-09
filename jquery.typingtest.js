@@ -165,7 +165,6 @@
                     <button type="button" class="refresh">Refresh</button>
                 </div>
                 <div class="result">
-                    <div class="wpm">0</div>
                     <div class="mistakes"></div>
                 </div>
             </div>
