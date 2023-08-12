@@ -1,4 +1,4 @@
-(function($){
+(function($) {
 
     // initialize plugin
     $.fn.typingTest = function(options) {
@@ -8,10 +8,10 @@
         // get words from API
         async function getWords() {
             const apiUrl = new URL(settings.api);
-            apiUrl.searchParams.append('words', settings.words || 10);
+            apiUrl.searchParams.append('words', settings.words);
 
             const result = $.ajax({
-                url: apiUrl,
+                url: apiUrl
             });
 
             return result;
@@ -28,16 +28,21 @@
         let totalInput = 0;
         let incorrectWords = [];
 
-        // initialize words
         function initWords(words) {
             for( const word of words ) {
                 createWord(word);
             }
         }
 
+        function createWord(word) {
+            const $word = $(`<span class="word" />`);
+            $word.text(word);
+            $words.append($word);
+        }
+
         function refreshWords() {
-            $words.html(`Loading...`);
-            getWords().then((res) => {
+            $words.html('Loading...');
+            getWords().then(res => {
                 $words.html('');
                 initWords(res);
             });
@@ -50,23 +55,16 @@
             totalInput = 0;
             incorrectWords = [];
             $time.text(0);
-            $wpm.text(0)
+            $wpm.text(0);
             $input.val('');
             $mistakes.text('');
             $wrapper.removeClass('finished');
         }
 
-        // create word item
-        function createWord(word) {
-            const $word = $(`<span class="word" />`);
-            $word.text(word);
-            $words.append($word);
-        }
-
         function getActiveWord() {
-            let $aw = $words.find(`.active`) 
+            let $aw = $words.find('.active');
             if( $aw.length ) return $aw;
-            $aw = $words.find(`:first-child`).addClass('active');
+            $aw = $words.find(':first-child').addClass('active');
             startTime();
             return $aw;
         }
@@ -88,7 +86,7 @@
             window.timer = setInterval(() => {
                 let time = parseFloat($time.text());
                 time += (1/10);
-                $time.text(time.toFixed(1));
+                $time.text(time.toFixed(2));
                 if( time % 1 == 0 ) {
                     calculateWPM();
                 }
@@ -105,11 +103,9 @@
 
         function calculateWPM() {
             const time = parseFloat($time.text()) / 60;
-
             let GWPM = (totalInput / 5) / time;
-
-            let NWPM = parseInt(GWPM - ((incorrectWords.length)/time));
-            $wpm.text(NWPM)
+            let NWPM = parseInt(GWPM - ((incorrectWords.length) / time));
+            $wpm.text(NWPM);
         }
 
         function typing() {
@@ -118,7 +114,6 @@
             const tw = $input.val();
 
             if( tw.indexOf(' ') > -1 ) {
-                // submitted the word
                 if( $.trim(tw) == aw ) {
                     $aw.addClass('correct');
                 } else {
@@ -146,29 +141,29 @@
         return this.each(function() {
             init($(this));
         });
-    };
+    }
 
-    // plugin default options
+    // defaults
     $.fn.typingTest.defaults = {
         api: 'https://random-word-api.vercel.app/api',
-        words: 5,
+        words: 10,
         template: `
-            <div class="wrapper">
-                <div class="typing-details">
-                    <div class="wpm">0</div>
-                    <div class="time">0</div>
-                </div>
-                <div class="words-list">
-                </div>
-                <div class="actions">
-                    <input />
-                    <button type="button" class="refresh">Refresh</button>
-                </div>
-                <div class="result">
-                    <div class="mistakes"></div>
-                </div>
+        <div class="wrapper">
+            <div class="typing-details">
+                <div class="wpm">0</div>
+                <div class="time">0</div>
             </div>
+            <div class="words-list"></div>
+            <div class="actions">
+                <input />
+                <button class="refresh" type="button">Refresh</button>
+            </div>
+            <div class="result">
+                <div class="mistakes"></div>
+            </div>
+        </div>
         `,
-    };
+    }
 
 }(jQuery));
+

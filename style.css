@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap');
 
 * {
     margin: 0;
@@ -16,11 +16,13 @@ body {
 .wrapper {
     width: 500px;
 }
+
 .typing-details {
     display: flex;
     font-size: 1em;
     flex-direction: row;
 }
+
 .wpm {
     width: 50%;
 }
@@ -34,14 +36,14 @@ body {
 .time::after {
     content: ' sec';
 }
+
 .words-list {
     width: 100%;
     min-height: 20px;
     padding: 2px 4px;
     border: 2px solid #d2d2d2;
-    border-radius: 5px;
+    border-radius: 2px;
 }
-
 .words-list .word {
     font-size: 1.3em;
     margin-right: 0.25em;
@@ -51,17 +53,14 @@ body {
 }
 
 .words-list .word.active {
-    background: #d2d2d2;
+    background-color: #d2d2d2;
 }
-
 .words-list .word.correct {
     color: green;
 }
-
 .words-list .word.wrong {
     color: red;
 }
-
 .words-list .word.active.wrong {
     color: #fff;
     background-color: red;
@@ -74,27 +73,21 @@ body {
     width: 100%;
     margin-top: 5px;
 }
+
 .actions input {
     font-size: 1.3em;
     flex: 1;
     border: 1px solid #d2d2d2;
     padding: 2px 4px;
 }
-.actions input:active,
-.actions input:focus {
-    border: inherit;
-}
 .actions .refresh {
-    background-color: #0a6bff;
+    background: blue;
     border-radius: 0 4px 4px 0;
     border: 0;
     color: #fff;
     cursor: pointer;
-    font-size: 1.2em;
-    font-weight: 700;
-    min-width: 75px;
+    font-size: 1em;
     padding: 8px;
-    text-align: center;
 }
 
 .finished .typing-details {
@@ -105,9 +98,6 @@ body {
 }
 .finished .result {
     display: block;
-}
-.result .wpm {
-    font-size: 2em;
 }
 .result .mistakes {
     font-size: 1.5em;
